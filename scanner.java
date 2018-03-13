@@ -3,7 +3,7 @@ import java.io.File;
 
 class InputScanner {
 
-	public static String[] readFile() throws FileNotFoundException {
+	public static String[] readFile() {
 		File file = new File("ncaa_data_2018.csv");
 		Scanner scanner = new Scanner(file);
 
