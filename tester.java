@@ -28,15 +28,19 @@ class Tester {
 		Region east = new Region(teams, 0, 15);
 		Region midwest = new Region(teams, 16, 31);
 		Region south = new Region(teams, 32, 47);
-		Region west = new Region(teams, 48, 63);		
+		Region west = new Region(teams, 48, 63);
 
-		for (int i=0; i< teams.length; i++) {
-			for (int j=0; j< teams[0].length; j++) {
-				System.out.println(teams[i][j]);
-			}
-		}
+		Region[] regions;
+		regions = new Region[]{east, west, midwest, south};
 
-		System.out.println(east.game());
+		Tournament tournament = new Tournament(regions);		
+
+		tournament.finalFour();
+		// for (int i=0; i< round_winners.length; i++) {
+		// 	for (int j=0; j< round_winners[0].length; j++) {
+		// 		System.out.println(round_winners[i][j]);
+		// 	}
+		// }
 
 	}
 
