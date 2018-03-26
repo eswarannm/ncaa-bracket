@@ -1,30 +1,97 @@
-class Tournament {
+public class Tournament {
 
-		private Region[] regions;
-
-		public Tournament(Region[] regions) {
-			this.regions = regions;
-		}
-
-		public String[][] finalFour() {
-			for (int i = 0; i < 2; i+2) {
-				double team1power = Double.parseDouble(regions[i][]);
-				double team2power = Double.parseDouble(regions[i+1][]);
-				double somemath = -1.0 * (team1power - team2power) * 30.464 / 400.0;
-				double odds_a = 1.0 / (1.0 + Math.pow(10, somemath));
-
-				Random rand = new Random();
-				double n = (rand.nextInt(1000000) + 0) / 1000000.0;
-				if (n <= odds_a) {
-					round[i][0] = region_teams[a][0];
-					round[i][1] = region_teams[a][1];
-					round[i][2] = region_teams[a][2];
+	public Team[] round1(Region region){
+		Team[] teams = region.getTeams();
+		Team[] winners = new Team[8];
+			for(int i = 0; i < 8; i++){
+				Team team1 = teams[i];
+				Team team2 = teams[teams.length - 1 - i];
+				boolean win = region.game(team1, team2);
+				if (win) {
+					winners[i] = team1;
+					System.out.println(winners[i].getName());
 				} else {
-					round[i][0] = region_teams[b][0];
-					round[i][1] = region_teams[b][1];
-					round[i][2] = region_teams[b][2];
+					winners[i] = team2;
+					System.out.println(winners[i].getName());
 				}
 			}
+			System.out.println("---");
+			return winners;
 		}
 
-}
+	public Team[] round2(Team[] winnersx, Region region){
+		Team[] teams = winnersx;
+		Team[] winners = new Team[4];
+		for(int i = 0; i < 4; i++){
+			Team team1 = teams[i];
+			Team team2 = teams[teams.length - 1 - i];
+			boolean win = region.game(team1, team2);
+			if (win) {
+				winners[i] = team1;
+				System.out.println(winners[i].getName());
+			} else {
+				winners[i] = team2;
+				System.out.println(winners[i].getName());
+			}
+		}
+    System.out.println("---");
+    return winners;
+    }
+ 
+
+	public Team[] round3(Team[] winnersx, Region region){
+		Team[] teams = winnersx;
+		Team[] winners = new Team[2];
+		for(int i = 0; i < 2; i++){
+			Team team1 = teams[i];
+			Team team2 = teams[teams.length - 1 - i];
+			boolean win = region.game(team1, team2);
+			if (win) {
+				winners[i] = team1;
+				System.out.println(winners[i].getName());
+			} else {
+				winners[i] = team2;
+				System.out.println(winners[i].getName());
+			}
+		}
+	System.out.println("---");
+    return winners;
+    }
+
+
+	public Team round4(Team[] winnersx, Region region){
+		Team[] teams = winnersx;
+		Team winner = teams[0];
+		Team team1 = teams[0];
+		Team team2 = teams[1];
+		boolean win = region.game(team1, team2);
+		if (win) {
+			winner = team1;
+		} else {
+			winner = team2;
+		}
+    return winner;
+    }
+
+	public Team[] round5(Team[] lastFour, FinalFour finalFour){
+		Team[] teams = lastFour;
+		Team[] championship = new Team[2];
+		Team team1 = teams[0];
+		Team team2 = teams[1];
+		Team team3 = teams[2];
+		Team team4 = teams[3];
+		boolean win = finalFour.game(team1, team2);
+		if (win) {
+			championship[0] = team1;
+		} else {
+			championship[0] = team2;
+		}
+		if (win) {
+			championship[1] = team3;
+		} else {
+			championship[1] = team4;
+		}
+    return championship;
+    }
+
+ }

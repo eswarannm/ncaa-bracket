@@ -1,13 +1,11 @@
 import java.util.Random;
 
-class Region {
+class FinalFour {
 
-	private String name;
-	private Team[] regionTeams = new Team[16];
+	private Team[] finalFourTeams = new Team[4];
 
-	public Region(String name, Team[] teams) {
-		this.name = name;
-		this.regionTeams = teams;
+	public FinalFour(Team[] finalFourTeams) {
+		this.finalFourTeams = teams;
 	}
 
 	public Team[] getTeams() {
@@ -33,3 +31,5 @@ class Region {
     }
 
 }
+
+	

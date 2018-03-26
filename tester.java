@@ -6,42 +6,68 @@ class Tester {
 	public static void main(String[] args) throws FileNotFoundException {
 		File file = new File("ncaa_data_2018.csv");
 		Scanner scanner = new Scanner(file);
-		String[][] teams = new String[64][3];
+		Team[] eastRegion = new Team[16];
+		Team[] midwestRegion = new Team[16];
+		Team[] southRegion = new Team[16];
+		Team[] westRegion = new Team[16];
 		int currentLine = 0;
-
+		int region = 0;
+		int i = 0;
 		while(scanner.hasNext()) {
 			String line = scanner.nextLine();
-			String[] pieces = line.split(",");
-
-			if (pieces.length > 2) {
-				String name = pieces[0];
-				String power = pieces[1];
-				String seed = pieces[2];
-				teams[currentLine][0] = name;
-				teams[currentLine][1] = power;
-				teams[currentLine][2] = seed;				
-				currentLine++;
-			}
-
+			if (i != 0 && i != 17 && i != 18 && i != 35 && i != 36 && i != 53 && i != 54) {
+				if (currentLine >= 16) {
+					currentLine = 0;
+					region++;
+				}
+				if (currentLine < 16) {
+					if (region == 0) {
+						eastRegion[currentLine] = new Team(line);
+						currentLine++;
+					} else if (region == 1) {
+						midwestRegion[currentLine] = new Team(line);
+						currentLine++;
+					} else if (region == 2) {
+						southRegion[currentLine] = new Team(line);
+						currentLine++;
+					} else if (region == 3) {
+						westRegion[currentLine] = new Team(line);
+						currentLine++;
+					}
+				} 
+            }
+			i++;
 		}
 
-		Region east = new Region(teams, 0, 15);
-		Region midwest = new Region(teams, 16, 31);
-		Region south = new Region(teams, 32, 47);
-		Region west = new Region(teams, 48, 63);
+		Region[] regions = new Region[4];
+		regions[0] = new Region("east", eastRegion);
+		regions[1] = new Region("midwest", midwestRegion);
+		regions[2] = new Region("south", southRegion);
+		regions[3] = new Region("west", westRegion);
 
-		Region[] regions;
-		regions = new Region[]{east, west, midwest, south};
+		Tournament superBowl = new Tournament();
+		Team[] finalFour = new Team[4];
+		Team[] championship = new Team[2];
+		FinalFour ff = new FinalFour(finalFour);
+		for (int j = 0; j < regions.length; j++) {
+			Team[] winners = superBowl.round1(regions[j]);
+			Team[] winners2 = superBowl.round2(winners, regions[j]);
+			Team[] winners3 = superBowl.round3(winners2, regions[j]);
+			finalFour[j] = superBowl.round4(winners3, regions[j]);
+		}
 
-		Tournament tournament = new Tournament(regions);		
+		for (int x = 0; x < finalFour.length; x++) {
+			System.out.println(finalFour[x].getName());
+		}
 
-		tournament.finalFour();
-		// for (int i=0; i< round_winners.length; i++) {
-		// 	for (int j=0; j< round_winners[0].length; j++) {
-		// 		System.out.println(round_winners[i][j]);
-		// 	}
-		// }
+		for (int j = 0; j < regions.length; j++) {
+			championship[j] = superBowl.round5(finalFour, ff);
+		}
 
+		for (int x = 0; x < championship.length; x++) {
+			System.out.println(championship[x].getName());
+		}
+		
 	}
 
 }
