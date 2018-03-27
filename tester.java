@@ -47,8 +47,6 @@ class Tester {
 
 		Tournament superBowl = new Tournament();
 		Team[] finalFour = new Team[4];
-		Team[] championship = new Team[2];
-		FinalFour ff = new FinalFour(finalFour);
 		for (int j = 0; j < regions.length; j++) {
 			Team[] winners = superBowl.round1(regions[j]);
 			Team[] winners2 = superBowl.round2(winners, regions[j]);
@@ -60,14 +58,20 @@ class Tester {
 			System.out.println(finalFour[x].getName());
 		}
 
-		for (int j = 0; j < regions.length; j++) {
-			championship[j] = superBowl.round5(finalFour, ff);
-		}
+		FinalFour ff = new FinalFour(finalFour);
+		Team[] championship = new Team[2];
+		championship = superBowl.round5(finalFour, ff);
+
+		String champ = new String();
+		champ = superBowl.round6(championship, ff);
 
 		for (int x = 0; x < championship.length; x++) {
 			System.out.println(championship[x].getName());
 		}
-		
+
+		System.out.println("---");
+		System.out.println(champ);
+	
 	}
 
 }

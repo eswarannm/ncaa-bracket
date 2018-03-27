@@ -4,7 +4,6 @@ class Team {
 	private double power;
 	private int seed;
 
-
 	public Team(String team) {
 
 		String[] teamInfo = team.split(",");
@@ -13,7 +12,6 @@ class Team {
         this.seed = Integer.parseInt(teamInfo[2]);
 
 	}
-
 
   	public String getName(){
         return name;

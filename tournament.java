@@ -73,25 +73,42 @@ public class Tournament {
     return winner;
     }
 
-	public Team[] round5(Team[] lastFour, FinalFour finalFour){
+	public Team[] round5(Team[] lastFour, FinalFour ff){
 		Team[] teams = lastFour;
 		Team[] championship = new Team[2];
 		Team team1 = teams[0];
 		Team team2 = teams[1];
 		Team team3 = teams[2];
 		Team team4 = teams[3];
-		boolean win = finalFour.game(team1, team2);
+		boolean win = ff.game(team1, team2);
 		if (win) {
 			championship[0] = team1;
 		} else {
 			championship[0] = team2;
 		}
-		if (win) {
+		boolean win2 = ff.game(team3, team4);
+		if (win2) {
 			championship[1] = team3;
 		} else {
 			championship[1] = team4;
 		}
-    return championship;
+		System.out.println("---");
+  		return championship;
     }
+
+    public String round6(Team[] lastTwo, FinalFour ff){
+		Team[] teams = lastTwo;
+		String champ = new String();
+		Team team1 = teams[0];
+		Team team2 = teams[1];
+		boolean win = ff.game(team1, team2);
+		if (win) {
+			champ = team1.getName();
+		} else {
+			champ = team2.getName();
+		}
+  		return champ;
+    }
+
 
  }

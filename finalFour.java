@@ -5,11 +5,11 @@ class FinalFour {
 	private Team[] finalFourTeams = new Team[4];
 
 	public FinalFour(Team[] finalFourTeams) {
-		this.finalFourTeams = teams;
+		this.finalFourTeams = finalFourTeams;
 	}
 
 	public Team[] getTeams() {
-		return regionTeams;
+		return finalFourTeams;
 	}
 
 	public boolean game(Team team1, Team team2){
